@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<body>
+<div class="container" style="padding: 297px;">
+    <form class="email-value" method="post">
+        {% csrf_token %}
+        <label>email</label>
+        {% if request.session.email %}
+        <input type="email" name="email" placeholder="enter your email" value="{{email}}"><br>
+        {% else %}
+        <input type="email" name="email" placeholder="enter your email" value="{{email}}"><br>
+        {% endif %}
+        <label>password</label>
+        <input type="password" name="password" placeholder="enter your password"><br>
+
+        <input type="submit">
+        </form>
+<!--    <label>password</label>-->
+<!--<input type="password" name="password" placeholder="enter your password">-->
+<!--    <input type="submit" value="submit">-->
+    {% if error %}
+    {{error}}
+    {% endif %}
+    {% if account_message %}
+    {{account_message}}
+    {% endif %}
+</div>
+</body>
+
+
+</html>
