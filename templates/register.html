@@ -12,9 +12,9 @@
     <form method="post">
         {% csrf_token %}
     <label>email</label>
-      <input type="email" name="email" placeholder="enter your email"><br>
+      <input type="email" name="email" placeholder="enter your email" value="{{email}}" required><spam>{% if password %}{{password}}{% endif %}</spam><br>
         <label>password</label>
-      <input type="password" name="password" placeholder="enter your password"><br>
+        <input type="password" name="password" placeholder="enter your password" required><spam>{% if password %}{{password}}{% endif %}</spam><br>
 <!--        <label>confirm password</label>-->
 <!--      <input type="password" name="password1" placeholder="enter your confirm password"><br>-->
 

@@ -13,12 +13,12 @@
         {% csrf_token %}
         <label>email</label>
         {% if request.session.email %}
-        <input type="email" name="email" placeholder="enter your email" value="{{email}}"><br>
+        <input type="email" name="email" placeholder="enter your email" value="{{email}}" required><br>
         {% else %}
-        <input type="email" name="email" placeholder="enter your email" value="{{email}}"><br>
+        <input type="email" name="email" placeholder="enter your email" value="{{email}}" required><br>
         {% endif %}
         <label>password</label>
-        <input type="password" name="password" placeholder="enter your password"><br>
+        <input type="password" name="password" placeholder="enter your password" required><br>
 
         <input type="submit">
         </form>
@@ -30,6 +30,9 @@
     {% endif %}
     {% if account_message %}
     {{account_message}}
+    {% endif %}
+    {% if passwordworng %}
+    {{passwordworng}}
     {% endif %}
 </div>
 </body>
