@@ -99,12 +99,16 @@ class Dashboard(View):
         if request.user.is_anonymous:
             context['showmodal']=True
             print(context['showmodal'])
+        to = request.GET.get("to")
 
+        context["to"] = to
         print(request.user,':::::::::::::::::::::::::::::::::::----request.user')
         return render(request,'dashborad.html',context)
 
 
-
+class CommonPage(View):
+    def get(self,request):
+        return render(request,'common.html')
 
 
 

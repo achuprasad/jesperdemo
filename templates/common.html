@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Entrebiz</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+
+  .box-in{
+  width: 226px;
+  border: 15px;
+  padding: 50px;
+  margin: 20px;
+  background: #F3F3F3;
+  border-radius: 11px
+
+  }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+
+
+
+
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+<!--navabar-->
+<div>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="#"></a>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+             {% if user.is_authenticated %}
+        <p style="position: relative;left: 1343px;top: 16px;background-color: yellowgreen;border-radius: 7px;padding: 5px;
+    text-align: center;
+    font-family: fantasy;"><a href="{% url 'logout' %}" style="text-decoration: none;color: black;">logout</a> </p>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<!--navabar-end-->
+
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>Entrebiz</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="inactive"><a href="{% url 'dashboard' %}">ALL DOCUMENT</a></li>
+<!--        <li><a href="#section2">Friends</a></li>-->
+<!--        <li><a href="#section3">Family</a></li>-->
+<!--        <li><a href="#section3">Photos</a></li>-->
+      </ul><br>
+<!--      <div class="input-group">-->
+<!--        <input type="text" class="form-control" placeholder="Search Blog..">-->
+<!--        <span class="input-group-btn">-->
+<!--          <button class="btn btn-default" type="button">-->
+<!--            <span class="glyphicon glyphicon-search"></span>-->
+<!--          </button>-->
+<!--        </span>-->
+<!--      </div>-->
+    </div>
+
+    <div class="col-sm-9">
+    <hr>
+      <h4><small></small></h4>
+<div>
+        <div class="box-in">
+        <ul><a  href="/dashboard/?to=mode-two">mode2</a></ul>
+
+        </div>
+
+         <div class="box-in">
+        <ul><a href="/dashboard/?to=mode-three">mode3</a></ul>
+
+        </div>
+
+         <div class="box-in">
+        <ul><a href="/dashboard/?to=mode-four">mode4</a></ul>
+
+        </div>
+
+</div>
+      <h4><small></small></h4>
+
+      <h2></h2>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+</div>
+
+</body>
+
+
+
+
+
+
+</html>
