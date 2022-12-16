@@ -1,0 +1,300 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>demo</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .div-box {
+    background-color: lightgrey;
+    width: 1075px;
+    border: 15px;
+    padding: 50px;
+    padding-top: 80px;
+    margin: 20px;
+    border-radius: 20px;
+    margin-top: 75px;
+    height: 585px;
+}
+  p {
+    width: 201px;
+  }
+
+.api-link:hover {
+  background-color: grey;
+  border-radius: 5px;
+}
+
+
+.active, .api-link:hover {
+  background-color: #666;
+  color: white;
+   border-radius: 5px;
+}
+</style>
+</head>
+<body>
+<!-- navabar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#" style="font-family: system-ui;"> </a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <span class="navbar-text" style="position: absolute;left: 1259px;">
+      <a class="btn btn-danger" href="{% url 'logout' %}">logout</a>
+    </span>
+  </div>
+</nav>
+<!-- navabar-end -->
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3" style="background-color: ##ffffff;
+    border-radius: 2px;min-height: 690px;border-radius: 6px">
+
+
+
+
+
+       <div class="col-sm-2" id="myDIV">
+      <div>
+         <p id="detail1" class="api-link-btn api-link" style="margin: 31px;padding: 14px;">Detail-1</p>
+      </div>
+     <div>
+        <p id="detail2" class="api-link-btn api-link" style="margin: 31px;padding: 14px;">Detail-2</p>
+     </div>
+     <div>
+        <p id="detail3" class="api-link-btn api-link" style="margin: 31px;padding: 14px;">Detail-3</p>
+     </div>
+
+    </div>
+
+
+
+
+
+    </div>
+    <div class="col-sm-9" style="background-color: #e7e7e7;border: 0.5px solid #b9b9b9;border-radius: 6px;
+    min-height: 690px;">
+
+ {% if form %}
+<div class="div-box">
+
+
+      <form method="post">
+          {% csrf_token %}
+    <div class="row g-3" id="div-one">
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="validationDefault01" class="form-label">First name</label>
+                <input type="text" placeholder="enter your name" name="firstname" class="form-control" id="id_firstname" value="{{firstname}}"  />
+                {% if form.firstname.errors %}
+            {% for error in form.firstname.errors %}
+                <span style="list-style:none;color:red;">{{ error|escape }}</span>
+            {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="validationDefault02" class="form-label">Lastname</label>
+                <input type="text" placeholder="enter your name" name="lastname" class="form-control" id="id_lastname" value="{{lastname}}"  />
+                   {% if form.lastname.errors %}
+            {% for error in form.lastname.errors %}
+                <span style="list-style:none;color:red;">{{ error|escape }}</span>
+            {% endfor %}
+                {% endif %}
+
+              </div>
+            </div>
+
+
+</div>
+<br>
+ <div class="row g-3" id="div-two" style="display:none;">
+
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="validationDefault02" class="form-label">Middlename</label>
+                <input type="text" placeholder="enter your name" class="form-control" name="middlename" id="id_middlename" value="{{middlename}}"  />
+                  {% if form.middlename.errors %}
+            {% for error in form.middlename.errors %}
+                <span style="list-style:none;color:red;">{{ error|escape }}</span>
+            {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="validationDefault02" class="form-label">Address</label>
+                <input type="text" placeholder="enter your name" class="form-control" name="address" id="id_address" value="{{address}}"  />
+
+                  {% if form.address.errors %}
+            {% for error in form.address.errors %}
+                <span style="list-style:none;color:red;">{{ error|escape }}</span>
+            {% endfor %}
+                {% endif %}
+
+              </div>
+            </div>
+
+
+
+
+</div>
+
+<br>
+
+
+
+
+
+          <div class="row g-3" id="div-three" style="display:none;">
+
+
+            <div class="col-md-3">
+              <div class="form-outline">
+                <label for="validationDefault02" class="form-label">Pincode</label>
+                <input type="text" placeholder="enter your name" class="form-control" name="pincode" id="id_pincode" value="{{pincode}}"  />
+
+                    {% if form.pincode.errors %}
+            {% for error in form.pincode.errors %}
+                <span style="list-style:none;color:red;">{{ error|escape }}</span>
+            {% endfor %}
+            {% endif %}
+
+            <input type="hidden"  class="form-control" name="category" value="category1"  /><br>
+
+            <input type="submit" value="create">
+
+
+
+              </div>
+            </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+
+</div>
+ {% endif %}
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content" style="margin: 66px;
+    padding: 57px;
+    border-radius: 10px;">
+        <div class="modal-header">
+          <h4 class="modal-title">user have to login in the page</h4>
+        </div>
+        <div class="modal-body">
+          <a class="btn btn-primary" href="{% url 'register' %}">click here to register</a><br><br><br>
+          <a class="btn btn-danger" href="{% url 'login' %}">if you have an account please login</a></button><br>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+<script>
+$(document).ready(function(){
+
+//for modal
+  if ("{{showmodal}}"=="True") {
+     $("#myModal").modal({backdrop: 'static', keyboard: false});
+}
+});
+
+
+
+$("#detail1").click(function(){
+    $('.api-link-btn').removeClass('active').addClass('inactive');
+     $(this).removeClass('inactive').addClass('active');
+    $("#div-one").show();
+    $("#div-two").hide();
+    $("#div-three").hide();
+    });
+
+$("#detail2").click(function(){
+    $('.api-link-btn').removeClass('active').addClass('inactive');
+     $(this).removeClass('inactive').addClass('active');
+     $("#div-two").show();
+    $("#div-one").hide();
+    $("#div-three").hide();
+
+    });
+
+$("#detail3").click(function(){
+    $('.api-link-btn').removeClass('active').addClass('inactive');
+     $(this).removeClass('inactive').addClass('active');
+     $("#div-two").hide();
+    $("#div-one").hide();
+    $("#div-three").show();
+
+    });
+
+
+</script>
+
+</body>
+</html>

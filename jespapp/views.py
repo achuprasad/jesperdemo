@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, authenticate, logout
 
-from jespapp.forms import PersonForm
+from jespapp.forms import PersonForm, DocumentForm
 from jespapp.models import Person
 
 
@@ -91,14 +91,16 @@ class Login(View):
         except:
             context={'error':'account doesnot exits'}
             return render(request,'login.html',context)
-
+def logout_view(request):
+    logout(request)
+    return redirect('/login/')
 class Dashboard(View):
 
     def get(self,request):
         context={}
-        if request.user.is_anonymous:
-            context['showmodal']=True
-            print(context['showmodal'])
+        # if request.user.is_anonymous:
+        #     context['showmodal']=True
+        #     print(context['showmodal'])
         to = request.GET.get("to")
 
         context["to"] = to
@@ -111,11 +113,29 @@ class CommonPage(View):
         return render(request,'common.html')
 
 
+class DocumentView(View):
+    def get(self,request):
+        context={}
+        print(request.GET.dict(),'.>>>>>>>>>>>>>>')
+
+        if request.GET.get("q"):
+            if request.user.is_anonymous:
+                context['showmodal'] = True
+                print(context['showmodal'])
+            form=DocumentForm()
+            context['form'] = form
 
 
+        return render(request,'document.html',context)
 
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('/login/')
+    def post(self,request):
+        context={}
+        form=DocumentForm(request.POST)
+        context = request.POST.dict()
+        if form.is_valid():
+            print(',,,,,1111')
+            pass
+        else:
+            print('elseeeee')
+            context['form'] = form
+            return render(request,'document.html',context)

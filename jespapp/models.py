@@ -46,3 +46,30 @@ class Person(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class Documents(models.Model):
+    CHOICES = (
+        ('category1', 'category1'),
+        ('category2', 'category2'),
+        ('category3', 'category3'),
+        ('category4', 'category4'),
+        ('category5', 'category5'),
+        ('category6', 'category6'),
+        ('category7', 'category7'),
+        ('category8', 'category8'),
+        ('category9', 'category9'),
+        ('category10', 'category10'),
+        ('category11', 'category11'),
+        ('category12', 'category12'),
+    )
+    type = models.CharField(max_length=500, choices=CHOICES)
+    firstname=models.CharField(max_length=250)
+    middlename=models.CharField(max_length=250)
+    lastname=models.CharField(max_length=250)
+    address=models.CharField(max_length=500)
+    pincode=models.IntegerField()
+    mobile=models.IntegerField()
+    title = models.CharField(max_length=250)
+    artist = models.CharField(max_length=250)
+    place=models.CharField(max_length=250)
+    created_by=models.ForeignKey(Person,on_delete=models.CASCADE,related_name="task_created_by",null=True, blank=True)

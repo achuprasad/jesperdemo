@@ -10,4 +10,5 @@ urlpatterns = [
     path('dashboard/',views.Dashboard.as_view(),name='dashboard'),
     path('common/',views.CommonPage.as_view(),name='common'),
     path('logout/',views.logout_view,name='logout'),
+    path('documents/',views.DocumentView.as_view(),name='document')
 ]
