@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-+8--7b@&v@od8=v#p=5ltm7=-$ierbj!n4a20%j8o67$nxvv9%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -107,7 +107,7 @@ AUTH_USER_MODEL = 'jespapp.Person'
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -128,4 +128,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'achuprasad@codesvera.com'
+EMAIL_HOST_PASSWORD = 'achuprasad@123'

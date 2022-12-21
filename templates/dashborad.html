@@ -9,7 +9,9 @@
     width: 201px;
   }
   .asc{
-    text-decoration: none;
+     text-decoration: auto;
+     text-decoration: auto;
+     text-decoration: auto;
     color: black;
   }
 
@@ -46,8 +48,9 @@ padding: 20px;
 <!-- navabar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#" style="font-family: system-ui;"> </a>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <span class="navbar-text" style="position: absolute;left: 1259px;">
+  <div class="collapse navbar-collapse" id="navbarText" style="background: rgb(233,233,252);
+background: linear-gradient(67deg, rgba(233,233,252,1) 0%, rgba(255,236,236,1) 10%, rgba(236,243,255,1) 18%, rgba(230,230,230,1) 30%, rgba(241,241,241,1) 47%, rgba(221,221,240,1) 70%, rgba(203,202,222,1) 81%, rgba(209,202,227,1) 94%, rgba(198,186,219,1) 100%);">
+    <span class="navbar-text">
       <a class="btn btn-danger" href="{% url 'logout' %}">logout</a>
     </span>
   </div>
@@ -98,7 +101,7 @@ padding: 20px;
       <div class="container-fluid div-pad">
           <p>THE MODE BE TO SHOW IN THE CORRECT PATH</p>
           <i class="fa fa-toggle-off" id="two" style="font-size:17px">View more</i>
-          <p class="btn btn-info"><a class="asc" href="/documents/">open document</a></p><br>
+          <p class="btn btn-info"><a class="asc" href="/documents/?q=CA2">open document</a></p><br>
                 <p class="toogle-p" id="hello2"  style="display:none;">
                             konjum nilaveee konjum inakuuuuuuuuu
                 </p>
@@ -245,6 +248,32 @@ padding: 20px;
 
 
 
+ {% if emailsend %}
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog" data-toggle="modal">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content" style="margin: 66px;
+               padding: 57px;
+               border-radius: 10px;">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                  <h4 class="modal-title" style="text-align: center;">{{emailsend}}</h4>
+               </div>
+               <div class="modal-body">
+                <div>thankyou for creating document</div><br>
+                   <div style="text-align: end;">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background: black;color: white;">Done</button>
+                       </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+  {% endif %}
+
 
 
 
@@ -260,32 +289,35 @@ padding: 20px;
 
 
  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog" data-toggle="modal" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
+<!--  <div class="modal fade" id="myModal" role="dialog" data-toggle="modal" data-backdrop="static" data-keyboard="false">-->
+<!--    <div class="modal-dialog">-->
 
-      <!-- Modal content-->
-      <div class="modal-content" style="margin: 66px;
-    padding: 57px;
-    border-radius: 10px;">
-        <div class="modal-header">
-          <h4 class="modal-title">user have to login in the page</h4>
-        </div>
-        <div class="modal-body">
-          <a class="btn btn-primary" href="{% url 'register' %}">click here to register</a><br><br><br>
-          <a class="btn btn-danger" href="{% url 'login' %}">if you have an account please login</a></button><br>
+<!--      &lt;!&ndash; Modal content&ndash;&gt;-->
+<!--      <div class="modal-content" style="margin: 66px;-->
+<!--    padding: 57px;-->
+<!--    border-radius: 10px;">-->
+<!--        <div class="modal-header">-->
+<!--          <h4 class="modal-title">user have to login in the page</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <a class="btn btn-primary" href="{% url 'register' %}">click here to register</a><br><br><br>-->
+<!--          <a class="btn btn-danger" href="{% url 'login' %}">if you have an account please login</a></button><br>-->
 
-        </div>
-      </div>
+<!--        </div>-->
+<!--      </div>-->
 
-    </div>
-  </div>
+<!--    </div>-->
+<!--  </div>-->
 
 
 
 
 
 <script>
-
+  if ("{{emailsend}}") {
+        console.log(">>>>",typeof "{{emailsend}}" );
+       $("#myModal").modal();
+  }
 
 
 $(document).ready(function(){
@@ -304,9 +336,11 @@ $(document).ready(function(){
         $("#div-one").show();
     }
 //for modal
-  if ("{{showmodal}}"=="True") {
-     $("#myModal").modal({backdrop: 'static', keyboard: false});
-}
+<!--  if ("{{showmodal}}"=="True") {-->
+<!--     $("#myModal").modal({backdrop: 'static', keyboard: false});-->
+<!--}-->
+
+
 });
 
 

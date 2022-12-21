@@ -67,9 +67,12 @@ class Documents(models.Model):
     middlename=models.CharField(max_length=250)
     lastname=models.CharField(max_length=250)
     address=models.CharField(max_length=500)
-    pincode=models.IntegerField()
-    mobile=models.IntegerField()
-    title = models.CharField(max_length=250)
-    artist = models.CharField(max_length=250)
-    place=models.CharField(max_length=250)
+    pincode=models.IntegerField(null=True)
+    mobile=models.IntegerField(null=True)
+    title = models.CharField(max_length=250,null=True)
+    artist = models.CharField(max_length=250,null=True)
+    place=models.CharField(max_length=250,null=True)
     created_by=models.ForeignKey(Person,on_delete=models.CASCADE,related_name="task_created_by",null=True, blank=True)
+
+    def __str__(self):
+        return self.type

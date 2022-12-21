@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, authenticate, logout
+from jespapp.forms import PersonForm, DocumentForm, DocumentForm1
+from jespapp.models import Person, Documents
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+#convert pdf
+import pdfkit
+import os
+import glob
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
 
-from jespapp.forms import PersonForm, DocumentForm
-from jespapp.models import Person
 
-
-# Create your views here.
 
 class LogView(View):
 
@@ -83,7 +90,7 @@ class Login(View):
             user=Person.objects.get(email=email)
             if user.check_password(password):
                 login(request, user)
-                return redirect('/dashboard/')
+                return redirect('/common/')
             else:
                 context['passwordworng'] = "worng password"
                 return render(request, 'login.html', context)
@@ -101,6 +108,10 @@ class Dashboard(View):
         # if request.user.is_anonymous:
         #     context['showmodal']=True
         #     print(context['showmodal'])
+        if request.session.get('emailsend'):
+            print('..............email successs message')
+            context['emailsend'] = request.session.get('emailsend')
+            del request.session['emailsend']
         to = request.GET.get("to")
 
         context["to"] = to
@@ -113,29 +124,101 @@ class CommonPage(View):
         return render(request,'common.html')
 
 
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    # filename = 'files/'
+    list_of_files = glob.glob('files/*')  # * means all i------f need specific format then *.csv
+    latest_file = max(list_of_files, key=os.path.getctime).split(".")[0]
+    print("latest_file",latest_file)
+    next_file_name = f"files/transcation{int(latest_file[17:]) + 1}.pdf"
+    print("next_file_name", next_file_name)
+    # latest_file_name = f_name.
+    # name="transcation.pdf"
+    # file=getUniquePath(filename,name)
+    pdf = pdfkit.from_string(html, next_file_name)
+    return next_file_name
+
 class DocumentView(View):
     def get(self,request):
         context={}
         print(request.GET.dict(),'.>>>>>>>>>>>>>>')
 
-        if request.GET.get("q"):
+        if request.GET.get("q") == "CA1":
             if request.user.is_anonymous:
                 context['showmodal'] = True
                 print(context['showmodal'])
             form=DocumentForm()
             context['form'] = form
-
+        elif request.GET.get("q") == "CA2":
+            if request.user.is_anonymous:
+                context['showmodal'] = True
+                print(context['showmodal'])
+            form1=DocumentForm1()
+            context['form1'] = form1
+        else:
+             context['docmessage']="New update will be coming soon"
 
         return render(request,'document.html',context)
 
     def post(self,request):
         context={}
         form=DocumentForm(request.POST)
+        form1=DocumentForm1(request.POST)
+        print('request.POST.get("category")>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',request.POST.get("category"))
         context = request.POST.dict()
         if form.is_valid():
-            print(',,,,,1111')
-            pass
+            doc=Documents.objects.create(firstname=request.POST.get("firstname"),
+                                         middlename=request.POST.get("middlename"),
+                                         lastname=request.POST.get("lastname"),
+                                         address=request.POST.get("address"),
+                                         pincode=request.POST.get("pincode"),
+                                         type=request.POST.get("category"),
+                                         created_by=request.user
+                                         )
+            doc.save()
+
+            subject = 'welcome to PDF world'
+            message = f'Hi {doc.firstname}, thank you for creating document.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [doc.created_by, ]
+            # recipient_list = ["achuprasad@codesvera.com",]
+            context={'firstname':doc.firstname,'lastname':doc.lastname,'pincode':doc.pincode}
+
+            # template=render_to_string('email.html',context)
+            pdf = render_to_pdf('email.html', context)
+            print(pdf,'>>>>>>>>>>>>>>>>>>',type(pdf))
+            # send_mail(subject, message, email_from, recipient_list,html_message=template)
+            email = EmailMessage(subject, message, email_from, recipient_list)
+            email.attach_file(pdf)
+            email.send()
+            request.session['emailsend'] = "email send successfully"
+            return redirect("/dashboard/")
+        elif form1.is_valid():
+            doc=Documents.objects.create(firstname=request.POST.get("firstname"),
+                                         middlename=request.POST.get("middlename"),
+                                         lastname=request.POST.get("lastname"),
+                                         address=request.POST.get("address"),
+                                         mobile=request.POST.get("mobile"),
+                                         type=request.POST.get("category"),
+                                         created_by=request.user)
+            doc.save()
+            subject = 'welcome to PDF world'
+            message = f'Hi {doc.firstname}, thank you for creating document.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [doc.created_by, ]
+            context = {'firstname': doc.firstname, 'lastname': doc.lastname, 'mobile': doc.mobile}
+            # template=render_to_string('email.html',context)
+            pdf = render_to_pdf('email.html', context)
+            print(pdf, '>>>>>>>>>>>>>>>>>>', type(pdf))
+            # send_mail(subject, message, email_from, recipient_list,html_message=template)
+            email = EmailMessage(subject, message, email_from, recipient_list)
+            email.attach_file(pdf)
+            email.send()
+            request.session['emailsend'] = "email send successfully"
+            return redirect("/dashboard/")
         else:
             print('elseeeee')
+            context['form1'] = form1
             context['form'] = form
             return render(request,'document.html',context)
