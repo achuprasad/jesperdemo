@@ -142,10 +142,10 @@ background: linear-gradient(90deg, rgba(142,142,201,1) 0%, rgba(164,160,171,1) 8
                {% endif %}
 
                       {% if form1 %}
-               <div class="div-box">
+               <div class="div-box" style="display:none;">
                   <form method="post">
                      {% csrf_token %}
-                     <div class="row g-3" id="div-one">
+                     <div class="row g-3" id="div-one" style="display:none;">
                         <div class="col-md-3">
                            <div class="form-outline">
                               <label for="validationDefault01" class="form-label">First name</label>
@@ -250,6 +250,8 @@ background: linear-gradient(90deg, rgba(142,142,201,1) 0%, rgba(164,160,171,1) 8
          $(document).ready(function(){
 
                   $('#detail1').addClass('active');
+                  // showing here a box for each form
+                  $(".div-box").show();
                   $("#div-one").show();
 
          //for modal

@@ -218,7 +218,120 @@ class DocumentView(View):
             request.session['emailsend'] = "email send successfully"
             return redirect("/dashboard/")
         else:
-            print('elseeeee')
-            context['form1'] = form1
-            context['form'] = form
+            if not form.is_valid():
+                context['form'] = form
+            else:
+                context['form1'] = form1
+                print("context['form1']................", context['form1'])
             return render(request,'document.html',context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # testing jespers html
+#
+# var as = window.location.href.split('?')[0];
+# console.log("...........as", as );
+# window.location.replace( as );
+#
+#
+#
+# replacing
+# var
+# currentUrl = $(location).attr('href');
+# console.log(">.........", currentUrl)
+# var
+# url = new
+# URL(currentUrl);
+#
+# url.searchParams.set('to', 'mode-two'); // setting
+# your
+# param
+#
+# var
+# newUrl = url.href;
+# window.location.replace(newUrl);
+#
+# console.log(newUrl);
+

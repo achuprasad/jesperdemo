@@ -314,7 +314,7 @@ background: linear-gradient(67deg, rgba(233,233,252,1) 0%, rgba(255,236,236,1) 1
 
 
 <script>
-  if ("{{emailsend}}") {
+  if ("{{emailsend}}" == "email send successfully") {
         console.log(">>>>",typeof "{{emailsend}}" );
        $("#myModal").modal();
   }
@@ -353,6 +353,8 @@ $("#mode1").click(function(){
     $("#div-two").hide();
     $("#div-three").hide();
     $("#div-four").hide();
+    $bar.load('#mode1');
+        localStorage.setItem('display', $bar.html());
     });
 
 
@@ -374,15 +376,22 @@ $("#mode3").click(function(){
     $("#div-two").hide();
     $("#div-one").hide();
     $("#div-four").hide();
+    $bar.load('#mode3');
+        localStorage.setItem('display', $bar.html());
 });
 
 $("#mode4").click(function(){
+
+
+
     $('.api-link-btn').removeClass('active').addClass('inactive');
      $(this).removeClass('inactive').addClass('active');
      $("#div-four").show();
     $("#div-three").hide();
     $("#div-two").hide();
     $("#div-one").hide();
+    $bar.load('#mode4');
+        localStorage.setItem('display', $bar.html());
 });
 
 
